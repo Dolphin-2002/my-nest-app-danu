@@ -18,13 +18,16 @@ export class MailService {
     });
   }
 
-  async sendTestEmail(to?: string) {
+  async sendTestEmail(to?: string, subject?: string, message?: string) {
     const mailOptions = {
       from: process.env.MAIL_FROM,
       to: to || process.env.MAIL_TO,
-      subject: 'Nodemailer Test Email',
-      text: 'Hello! This is a test email from NestJS using Nodemailer.',
-      html: '<h1>Hello!</h1><p>This is a <b>test email</b> from NestJS using Nodemailer.</p>',
+      subject: subject || 'Nodemailer Test Email',
+      text:
+        message || 'Hello! This is a test email from NestJS using Nodemailer.',
+      html: message
+        ? `<p>${message}</p>`
+        : '<h1>Hello!</h1><p>This is a <b>test email</b> from NestJS using Nodemailer.</p>',
     };
 
     try {
